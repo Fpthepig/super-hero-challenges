@@ -4,15 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact Form</title>
+    
   </head>
   <body>
     <h1>Contact Form</h1>
     <form action="/submit-form" method="POST">
-      <label for="name">Name:</label>
+      <label for="name">SuperHero-Name:</label>
       <input type="text" id="name" name="name" required /><br /><br />
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required /><br /><br />
-      <label for="message">Message:</label><br />
+      <label for="email">Universe:</label>
+      <input type="text" id="email" name="email" required /><br /><br />
+      <label for="message">Super-Powers:</label><br />
       <textarea
         id="message"
         name="message"
@@ -41,6 +42,7 @@
         <tr>
           <th>User Name</th>
           <th>User Email</th>
+          <th>User Message</th>
         </tr>
       </thead>
       <tbody id="userTableBody">
@@ -100,7 +102,7 @@
           const users = await fetchUsers();
           if (Array.isArray(users) && users.length > 0) {
             users.forEach((user) => {
-              const row = `<tr><td>${user.name}</td><td>${user.email}</td></tr>`;
+              const row = `<tr><td>${user.name}</td><td>${user.email}</td></tr> ${user.message}</td><td>`;
               tableBody.innerHTML += row;
             });
           }
