@@ -5,68 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact Form</title>
     <style>
-      form {
-        font-size: 18px;
+      div.form-wrapper {
+        border-style: solid;
 
-        border-radius: 10px 100px / 120px;
+        background: linear-gradient(purple 0%, red 80%);
+        width: 48%;
 
-        border-color: green;
-
+        float: left;
         box-sizing: border-box;
-        width: 60%;
-        border: solid #5b6dcd 10px;
-        padding: 5px;
-        display: inline-block;
+        border-radius: 5%;
       }
 
-      label {
-        color: blue;
+      div.form-wrapper2 {
+        border-style: solid;
+
+        background: linear-gradient(darkgreen 0%, orange 80%);
+        width: 48%;
+
+        float: left;
+        box-sizing: border-box;
+        border-radius: 5%;
+      }
+
+      div.form-wrapper3 {
+        border-style: solid;
+
+        background: linear-gradient(
+          rgb(71, 169, 157) 0%,
+          rgb(219, 168, 74) 80%
+        );
+
+        width: 48%;
+
+        float: left;
+        box-sizing: border-box;
+        border-radius: 5%;
+      }
+
+      div.form-wrapper4 {
+        border-style: solid;
+
+        background: linear-gradient(lightgreen 0%, orange 80%);
+        width: 48%;
+        
+
+        float: left;
+        box-sizing: border-box;
+        border-radius: 5%;
+      }
+
+      form > div::after {
+        content: "";
+        display: table;
+        clear: both;
       }
     </style>
   </head>
   <body>
-    <h1>Contact Form</h1>
-    <form action="/submit-form" method="POST">
-      <label for="name">SuperHero-Name:</label>
-      <input type="text" id="name" name="name" required /><br /><br />
-      <label for="email">Universe:</label>
-      <input type="text" id="email" name="email" required /><br /><br />
-      <label for="message">Super-Powers:</label><br />
-      <textarea
-        id="message"
-        name="message"
-        rows="4"
-        cols="50"
-        required
-      ></textarea
-      ><br /><br />
-      <input type="submit" value="Submit" />
-    </form>
-    <h1>User Management</h1>
-    <form id="updateForm">
-      <label for="currentName">Current name:</label>
-      <input type="text" id="currentName" required /><br /><br />
-      <label for="currentEmail">Current email:</label>
-      <input type="email" id="currentEmail" required /><br /><br />
-      <label for="newName">New name:</label>
-      <input type="text" id="newName" required /><br /><br />
-      <label for="newEmail">New email:</label>
-      <input type="email" id="newEmail" required /><br /><br />
-      <button type="submit">Update User</button>
-    </form>
-    <h1>Show Users</h1>
-    <table id="usersTable">
-      <thead>
-        <tr>
-          <th>User Name</th>
-          <th>User Email</th>
-          <th>User Message</th>
-        </tr>
-      </thead>
-      <tbody id="userTableBody">
-        <!-- data of users will be rendered here -->
-      </tbody>
-    </table>
+    <div class="form-wrapper">
+      <h1>Contact Form</h1>
+      <form action="/submit-form" method="POST">
+        <label for="name">SuperHeroName:</label>
+        <input type="text" id="name" name="name" required /><br /><br />
+        <label for="email">Power:</label>
+        <input type="text" id="email" name="email" required /><br /><br />
+        <label for="message">Universe:</label><br />
+        <textarea
+          id="message"
+          name="message"
+          rows="4"
+          cols="50"
+          required
+        ></textarea
+        ><br /><br />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+    <div class="form-wrapper2">
+      <h1>User Management</h1>
+      <h2>Update Hero</h2>
+      <form id="updateForm">
+        <label for="currentName">CurrentSuperHeroName:</label>
+        <input type="text" id="currentName" required /><br /><br />
+        <label for="currentEmail">CurrentPower:</label>
+        <input type="text" id="currentEmail" required /><br /><br />
+        <label for="newName">newSuperHeroName:</label>
+        <input type="text" id="newName" required /><br /><br />
+        <label for="newEmail">NewPower:</label>
+        <input type="text" id="newEmail" required /><br /><br />
+        <button type="submit">Update Hero</button>
+      </form>
+    </div>
+    <div class="form-wrapper3">
+      <h2>Delete Hero</h2>
+      <form id="delete-user">
+        <label for="delete-name">Delete-SuperHeroName:</label>
+        <input type="text" id="delete-name" /><br /><br />
+
+        <label for="delete-email">Delete-SuperHeroPower</label>
+        <input type="text" id="delete-email" /><br /><br />
+        <button type="submit">Delete User</button><br /><br />
+      </form>
+    </div>
+    <div class="form-wrapper4">
+      <h1>Show Users</h1>
+      <table id="usersTable">
+        <thead>
+          <tr>
+            <th>User Name</th>
+            <th>User Email</th>
+          </tr>
+        </thead>
+        <tbody id="userTableBody">
+          <!-- data of users will be rendered here -->
+        </tbody>
+      </table>
+    </div>
+
+    <img src="dc-superheroes.jpg" alt="superheroes " />
     <script>
       document
         .getElementById("updateForm")
@@ -95,6 +151,28 @@
             alert("Error updating user: " + error.message);
           }
         });
+
+      document
+        .getElementById("delete-user")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const name = document.getElementById("delete-name").value;
+          const email = document.getElementById("delete-email").value;
+          try {
+            const response = await fetch(`/user/${name}/${email}`, {
+              method: "DELETE",
+            });
+            if (!response.ok) {
+              throw new Error("Error with network");
+            }
+            const data = await response.text();
+            // console.log(data);
+            renderUsers();
+          } catch (error) {
+            console.error("something went wrong" + error.message);
+          }
+        });
+
       async function fetchUsers() {
         try {
           const response = await fetch("/users");
@@ -120,7 +198,7 @@
           const users = await fetchUsers();
           if (Array.isArray(users) && users.length > 0) {
             users.forEach((user) => {
-              const row = `<tr><td>${user.name}</td><td>${user.email}</td></tr> ${user.message}</td><td>`;
+              const row = `<tr><td>${user.name}</td><td>${user.email}</td></tr>`;
               tableBody.innerHTML += row;
             });
           }
