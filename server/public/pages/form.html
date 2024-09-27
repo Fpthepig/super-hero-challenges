@@ -5,12 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact Form</title>
     <style>
+      body {
+        background-image: url("https://i.ytimg.com/vi/--nk1b3_DRM/maxresdefault.jpg");
+        background-size: cover;
+
+        margin: auto;
+        width: 50%;
+        border: 3px solid green;
+        padding: 10px;
+      }
       div.form-wrapper {
         border-style: solid;
 
-        background: linear-gradient(purple 0%, red 80%);
-        width: 48%;
-
+        background: linear-gradient(
+          rgba(89, 17, 171, 0.5) 0%,
+          rgba(136, 63, 226, 0.7) 80%
+        );
         float: left;
         box-sizing: border-box;
         border-radius: 5%;
@@ -19,7 +29,10 @@
       div.form-wrapper2 {
         border-style: solid;
 
-        background: linear-gradient(darkgreen 0%, orange 80%);
+        background: linear-gradient(
+          rgba(34, 43, 211, 0.5) 0%,
+          rgba(151, 129, 88, 0.7) 80%
+        );
         width: 48%;
 
         float: left;
@@ -31,8 +44,8 @@
         border-style: solid;
 
         background: linear-gradient(
-          rgb(71, 169, 157) 0%,
-          rgb(219, 168, 74) 80%
+          rgb(71, 169, 157, 0.5) 0%,
+          rgb(219, 168, 74, 0.7) 80%
         );
 
         width: 48%;
@@ -45,9 +58,11 @@
       div.form-wrapper4 {
         border-style: solid;
 
-        background: linear-gradient(lightgreen 0%, orange 80%);
-        width: 48%;
-        
+        background: linear-gradient(
+          to right,
+          rgba(234, 130, 130, 0),
+          rgba(255, 0, 0, 1)
+        );
 
         float: left;
         box-sizing: border-box;
@@ -108,7 +123,7 @@
       </form>
     </div>
     <div class="form-wrapper4">
-      <h1>Show Users</h1>
+      <h1>Show Hero</h1>
       <table id="usersTable">
         <thead>
           <tr>
@@ -121,8 +136,11 @@
         </tbody>
       </table>
     </div>
+    <img
+      src="https://static.wikia.nocookie.net/marvelcinematicuniverse/images/2/22/Thor_in_LoveAndThunder_Poster.jpg/revision/latest/scale-to-width-down/1200?cb=20231021012616"
+      alt="spec"
+    />
 
-    <img src="dc-superheroes.jpg" alt="superheroes " />
     <script>
       document
         .getElementById("updateForm")
